@@ -1,0 +1,26 @@
+# C++ build artifacts
+*.o
+*.obj
+*.exe
+*.out
+*.app
+*.dylib
+*.so
+*.dll
+
+# Compiled executables from keyword examples
+kw_*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp 
