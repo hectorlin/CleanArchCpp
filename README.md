@@ -1,12 +1,88 @@
-# C++11 Keywords Complete Examples
+# CleanArchCpp - Clean Architecture & C++11 Examples
 
-Complete examples for all C++11 keywords with bilingual comments (English/Chinese).
+A comprehensive C++ project demonstrating Clean Architecture principles and complete C++11 keyword examples with bilingual documentation.
 
-## Overview
+## 🏗️ Project Overview
 
-This repository contains 72 individual C++ source files, each demonstrating the usage of a specific C++11 keyword. All examples are fully compilable and runnable.
+This repository showcases:
+- **Clean Architecture Implementation** in C++
+- **Complete C++11 Keywords** with practical examples
+- **Operating System Detection** utilities
+- **Modern C++ Best Practices**
 
-## Keywords Covered
+## 📁 Project Structure
+
+```
+CleanArchCpp/
+├── clean_architecture_example.cpp    # Clean Architecture demonstration
+├── clean_architecture_example        # Compiled executable
+├── os_detector.cpp                   # OS detection utility
+├── os_detector                       # Compiled executable
+├── kw_*.cpp                          # C++11 keyword examples (72 files)
+├── kw_*                              # Compiled keyword examples
+├── Makefile                          # Build configuration
+├── .gitignore                        # Git ignore rules
+└── README.md                         # This documentation
+```
+
+## 🎯 Main Features
+
+### 1. Clean Architecture Example
+- **Domain Layer**: Business logic and entities
+- **Use Case Layer**: Application-specific business rules
+- **Interface Adapter Layer**: Controllers and presenters
+- **Framework Layer**: External interfaces and tools
+
+### 2. C++11 Keywords Complete Coverage
+- **72 Individual Examples** covering all C++11 keywords
+- **Bilingual Comments** (English/Chinese)
+- **Fully Compilable** and runnable code
+- **Practical Use Cases** for each keyword
+
+### 3. Operating System Detection
+- **Cross-platform** OS detection utility
+- **Runtime** platform identification
+- **Compile-time** feature detection
+
+## 🚀 Quick Start
+
+### Prerequisites
+- C++11 compatible compiler (GCC 4.8+, Clang 3.3+, MSVC 2015+)
+- Make (optional, for using Makefile)
+
+### Building the Project
+
+```bash
+# Build all components
+make
+
+# Build specific components
+make clean_architecture_example
+make os_detector
+make keywords
+
+# Clean build artifacts
+make clean
+```
+
+### Running Examples
+
+```bash
+# Run Clean Architecture example
+./clean_architecture_example
+
+# Run OS detector
+./os_detector
+
+# Run all keyword examples
+for file in kw_*.cpp; do
+    echo "=== Running ${file%.cpp} ==="
+    "./${file%.cpp}"
+    echo
+done
+```
+
+## 📚 C++11 Keywords Covered
 
 ### Basic Keywords
 - `auto`, `bool`, `break`, `case`, `catch`, `char`, `class`, `const`, `continue`
@@ -25,64 +101,72 @@ This repository contains 72 individual C++ source files, each demonstrating the 
 - `alignas`, `alignof`, `char16_t`, `char32_t`, `constexpr`, `decltype`
 - `noexcept`, `nullptr`, `static_assert`, `thread_local`
 
-## Compilation
+## 🏛️ Clean Architecture Principles
 
-All files can be compiled with C++11 standard:
+The project demonstrates Clean Architecture with:
+
+1. **Independence of Frameworks**: Core business logic is independent of external frameworks
+2. **Testability**: Business rules can be tested without UI, database, or external elements
+3. **Independence of UI**: UI can change easily without changing the rest of the system
+4. **Independence of Database**: Business rules are not bound to the database
+5. **Independence of any external agency**: Business rules don't know anything about the outside world
+
+## 🔧 Development
+
+### Compiling Individual Files
 
 ```bash
-# Compile individual file
+# Clean Architecture example
+g++ -std=c++11 -o clean_architecture_example clean_architecture_example.cpp
+
+# OS detector
+g++ -std=c++11 -o os_detector os_detector.cpp
+
+# Keyword examples
 g++ -std=c++11 -o kw_auto kw_auto.cpp
-
-# Compile all files
-for file in kw_*.cpp; do
-    g++ -std=c++11 -o "${file%.cpp}" "$file"
-done
 ```
 
-## Running Examples
+### Code Style
+- Follow C++11 standards
+- Use meaningful variable names
+- Include bilingual comments
+- Maintain clean, readable code structure
 
-```bash
-# Run individual example
-./kw_auto
+## 📖 Documentation
 
-# Run all examples
-for file in kw_*.cpp; do
-    echo "=== Running ${file%.cpp} ==="
-    "./${file%.cpp}"
-    echo
-done
-```
+Each keyword example includes:
+- **English comments** explaining the concept
+- **Chinese comments** for bilingual support
+- **Practical usage** examples
+- **Compilation instructions**
 
-## Project Structure
+## 🤝 Contributing
 
-```
-CleanArchCpp/
-├── kw_*.cpp          # Individual keyword examples (72 files)
-├── clean_architecture_example.cpp  # Clean Architecture example
-├── os_detector.cpp   # OS detection example
-├── Makefile          # Build configuration
-├── .gitignore        # Git ignore rules
-└── README.md         # This file
-```
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add appropriate tests
+5. Submit a pull request
 
-## Features
-
-- ✅ All 72 C++11 keywords covered
-- ✅ Bilingual comments (English/Chinese)
-- ✅ Fully compilable and runnable
-- ✅ Practical examples
-- ✅ Cross-platform compatibility
-- ✅ Clean Architecture example included
-
-## Requirements
-
-- C++11 compatible compiler (GCC 4.8+, Clang 3.3+, MSVC 2015+)
-- Standard C++ library
-
-## License
+## 📄 License
 
 This project is open source and available under the MIT License.
 
-## Author
+## 👨‍💻 Author
 
-silverlin2@msn.com 
+**silverlin2@msn.com**
+
+## 🌟 Features Summary
+
+- ✅ **Clean Architecture** implementation
+- ✅ **72 C++11 keywords** with examples
+- ✅ **Cross-platform** compatibility
+- ✅ **Bilingual documentation** (English/Chinese)
+- ✅ **Fully compilable** and runnable
+- ✅ **OS detection** utilities
+- ✅ **Modern C++** best practices
+- ✅ **Comprehensive** documentation
+
+---
+
+**Happy Coding! 🚀** 
