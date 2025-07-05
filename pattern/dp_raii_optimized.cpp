@@ -6,6 +6,7 @@
 #include <mutex>
 #include <thread>
 #include <chrono>
+#include <map>
 
 // Optimized RAII (Resource Acquisition Is Initialization) Principle Example
 // Using modern C++17/20 features for better performance and safety

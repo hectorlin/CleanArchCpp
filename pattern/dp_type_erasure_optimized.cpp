@@ -4,6 +4,7 @@
 #include <string>
 #include <functional>
 #include <type_traits>
+#include <any>
 
 // Optimized Type Erasure Pattern Example
 // Using modern C++17/20 features for better performance and type safety
@@ -48,16 +49,18 @@ private:
 // Optimized example: Type erasure with modern C++ features
 // Using std::function and std::any for type safety
 
-// Concept-based type erasure
-template<typename T>
-concept Printable = requires(T t) {
-    { t.print() } -> std::convertible_to<void>;
-};
+// Type traits for type erasure
+template<typename T, typename = void>
+struct is_printable : std::false_type {};
 
 template<typename T>
-concept Calculable = requires(T t, int x) {
-    { t.calculate(x) } -> std::convertible_to<int>;
-};
+struct is_printable<T, std::void_t<decltype(std::declval<T>().print())>> : std::true_type {};
+
+template<typename T, typename = void>
+struct is_calculable : std::false_type {};
+
+template<typename T>
+struct is_calculable<T, std::void_t<decltype(std::declval<T>().calculate(std::declval<int>()))>> : std::true_type {};
 
 // Modern type erasure using std::function
 class ModernTypeEraser {
@@ -319,14 +322,19 @@ private:
 };
 
 // Modern type erasure with concepts (C++20)
-template<typename T>
-concept Executable = requires(T t) {
-    { t.execute() } -> std::convertible_to<void>;
-    { t.getType() } -> std::convertible_to<std::string>;
-};
+// Type trait for executable objects
+template<typename T, typename = void>
+struct is_executable : std::false_type {};
 
-template<Executable T>
+template<typename T>
+struct is_executable<T, std::void_t<
+    decltype(std::declval<T>().execute()),
+    decltype(std::declval<T>().getType())
+>> : std::true_type {};
+
+template<typename T>
 class ConceptBasedEraser {
+    static_assert(is_executable<T>::value, "T must be executable");
 public:
     explicit ConceptBasedEraser(T value) : value_(std::move(value)) {}
     
@@ -426,7 +434,7 @@ int main() {
     // std::any type erasure
     std::cout << "\n--- std::any Type Erasure Example ---" << std::endl;
     
-    AnyTypeEraser anyEraser(Calculator(4));
+    AnyTypeEraser anyEraser{Calculator(4)};
     if (auto* calc = anyEraser.get<Calculator>()) {
         calc->print();
         std::cout << "Any eraser result: " << calc->calculate(6) << std::endl;

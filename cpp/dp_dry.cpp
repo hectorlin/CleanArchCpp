@@ -96,22 +96,20 @@ private:
 class AdvancedUserValidator {
 public:
     bool validateEmail(const std::string& email) {
-        std::vector<ValidationRule<std::function<bool(const std::string&)>>> rules = {
-            ValidationRule([](const std::string& s) { return !StringValidator::isEmpty(s); }),
-            ValidationRule([](const std::string& s) { return StringValidator::contains(s, '@'); }),
-            ValidationRule([](const std::string& s) { return StringValidator::contains(s, '.'); })
-        };
+        std::vector<ValidationRule<std::function<bool(const std::string&)>>> rules;
+        rules.emplace_back([](const std::string& s) { return !StringValidator::isEmpty(s); });
+        rules.emplace_back([](const std::string& s) { return StringValidator::contains(s, '@'); });
+        rules.emplace_back([](const std::string& s) { return StringValidator::contains(s, '.'); });
         
         return std::all_of(rules.begin(), rules.end(), 
                           [&email](const auto& rule) { return rule.validate(email); });
     }
     
     bool validatePhone(const std::string& phone) {
-        std::vector<ValidationRule<std::function<bool(const std::string&)>>> rules = {
-            ValidationRule([](const std::string& s) { return !StringValidator::isEmpty(s); }),
-            ValidationRule([](const std::string& s) { return StringValidator::hasMinLength(s, 10); }),
-            ValidationRule([](const std::string& s) { return StringValidator::containsOnly(s, "0123456789"); })
-        };
+        std::vector<ValidationRule<std::function<bool(const std::string&)>>> rules;
+        rules.emplace_back([](const std::string& s) { return !StringValidator::isEmpty(s); });
+        rules.emplace_back([](const std::string& s) { return StringValidator::hasMinLength(s, 10); });
+        rules.emplace_back([](const std::string& s) { return StringValidator::containsOnly(s, "0123456789"); });
         
         return std::all_of(rules.begin(), rules.end(), 
                           [&phone](const auto& rule) { return rule.validate(phone); });

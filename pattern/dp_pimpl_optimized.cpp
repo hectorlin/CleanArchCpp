@@ -64,12 +64,12 @@ private:
 // Implementation class (can be in separate .cpp file)
 class PublicClassImpl {
 public:
-    PublicClassImpl() : initialized_(false), cacheSize_(0) {
+    PublicClassImpl() : cacheSize_(0), initialized_(false) {
         std::cout << "PublicClassImpl default constructed" << std::endl;
     }
     
     explicit PublicClassImpl(std::string name) 
-        : name_(std::move(name)), initialized_(false), cacheSize_(0) {
+        : name_(std::move(name)), cacheSize_(0), initialized_(false) {
         std::cout << "PublicClassImpl constructed with name: " << name_ << std::endl;
     }
     
@@ -361,9 +361,9 @@ int main() {
     
     // Bad example: Exposed implementation
     std::cout << "\n--- Bad Example (Exposed Implementation) ---" << std::endl;
-    BadPublicClass badClass;
-    badClass.data_.push_back(42); // Direct access to implementation
-    std::cout << "Bad class data size: " << badClass.data_.size() << std::endl;
+    // BadPublicClass badClass; // Removed due to missing implementation
+    // badClass.data_.push_back(42); // Direct access to implementation
+    // std::cout << "Bad class data size: " << badClass.data_.size() << std::endl;
     
     // Optimized example: PIMPL idiom
     std::cout << "\n--- Optimized Example (PIMPL Idiom) ---" << std::endl;

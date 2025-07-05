@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <functional>
 #include <type_traits>
+#include <numeric>
 
 // Optimized KISS (Keep It Simple, Stupid) Principle Example
 // Using modern C++17/20 features for better performance and readability

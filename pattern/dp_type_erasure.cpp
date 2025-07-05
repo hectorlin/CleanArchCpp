@@ -13,11 +13,9 @@ public:
     template<typename T>
     Drawable(T&& obj) : pImpl(std::make_unique<Model<T>>(std::forward<T>(obj))) {}
     
-    Drawable(const Drawable& other) : pImpl(other.pImpl->clone()) {}
-    Drawable& operator=(const Drawable& other) {
-        pImpl = other.pImpl->clone();
-        return *this;
-    }
+    // Disable copy to avoid clone issues
+    Drawable(const Drawable&) = delete;
+    Drawable& operator=(const Drawable&) = delete;
     
     Drawable(Drawable&&) = default;
     Drawable& operator=(Drawable&&) = default;
@@ -30,7 +28,6 @@ private:
     struct Concept {
         virtual ~Concept() = default;
         virtual void draw() const = 0;
-        virtual std::unique_ptr<Concept> clone() const = 0;
     };
     
     template<typename T>
@@ -39,10 +36,6 @@ private:
         
         void draw() const override {
             object.draw();
-        }
-        
-        std::unique_ptr<Concept> clone() const override {
-            return std::make_unique<Model<T>>(object);
         }
         
         T object;
@@ -94,11 +87,9 @@ public:
     template<typename F>
     Callable(F&& f) : pImpl(std::make_unique<CallableModel<F>>(std::forward<F>(f))) {}
     
-    Callable(const Callable& other) : pImpl(other.pImpl->clone()) {}
-    Callable& operator=(const Callable& other) {
-        pImpl = other.pImpl->clone();
-        return *this;
-    }
+    // Disable copy to avoid clone issues
+    Callable(const Callable&) = delete;
+    Callable& operator=(const Callable&) = delete;
     
     Callable(Callable&&) = default;
     Callable& operator=(Callable&&) = default;
@@ -111,17 +102,12 @@ public:
 private:
     struct CallableConcept {
         virtual ~CallableConcept() = default;
-        virtual std::unique_ptr<CallableConcept> clone() const = 0;
         virtual int call(int x) const = 0;
     };
     
     template<typename F>
     struct CallableModel : CallableConcept {
         CallableModel(F&& f) : func(std::forward<F>(f)) {}
-        
-        std::unique_ptr<CallableConcept> clone() const override {
-            return std::make_unique<CallableModel<F>>(func);
-        }
         
         int call(int x) const override {
             return func(x);
@@ -139,11 +125,9 @@ public:
     template<typename T>
     Serializable(T&& obj) : pImpl(std::make_unique<SerializableModel<T>>(std::forward<T>(obj))) {}
     
-    Serializable(const Serializable& other) : pImpl(other.pImpl->clone()) {}
-    Serializable& operator=(const Serializable& other) {
-        pImpl = other.pImpl->clone();
-        return *this;
-    }
+    // Disable copy to avoid clone issues
+    Serializable(const Serializable&) = delete;
+    Serializable& operator=(const Serializable&) = delete;
     
     Serializable(Serializable&&) = default;
     Serializable& operator=(Serializable&&) = default;
@@ -156,7 +140,6 @@ private:
     struct SerializableConcept {
         virtual ~SerializableConcept() = default;
         virtual std::string serialize() const = 0;
-        virtual std::unique_ptr<SerializableConcept> clone() const = 0;
     };
     
     template<typename T>
@@ -165,10 +148,6 @@ private:
         
         std::string serialize() const override {
             return object.serialize();
-        }
-        
-        std::unique_ptr<SerializableConcept> clone() const override {
-            return std::make_unique<SerializableModel<T>>(object);
         }
         
         T object;
@@ -209,22 +188,20 @@ int main() {
     
     // Drawable type erasure
     std::cout << "\n--- Drawable Type Erasure ---" << std::endl;
-    std::vector<Drawable> shapes;
     
-    shapes.emplace_back(Circle(5.0));
-    shapes.emplace_back(Rectangle(3.0, 4.0));
-    shapes.emplace_back(Triangle(6.0, 4.0));
+    Drawable circle = Circle(5.0);
+    Drawable rectangle = Rectangle(3.0, 4.0);
+    Drawable triangle = Triangle(6.0, 4.0);
     
-    for (const auto& shape : shapes) {
-        shape.draw();
-    }
+    circle.draw();
+    rectangle.draw();
+    triangle.draw();
     
     // Callable type erasure
     std::cout << "\n--- Callable Type Erasure ---" << std::endl;
-    std::vector<Callable> functions;
     
     // Lambda function
-    functions.emplace_back([](int x) { return x * 2; });
+    Callable func1 = [](int x) { return x * 2; };
     
     // Function object
     struct Multiplier {
@@ -232,39 +209,30 @@ int main() {
         Multiplier(int f) : factor(f) {}
         int operator()(int x) const { return x * factor; }
     };
-    functions.emplace_back(Multiplier(3));
+    Callable func2 = Multiplier(3);
     
     // Function pointer
     int (*func_ptr)(int) = [](int x) { return x + 10; };
-    functions.emplace_back(func_ptr);
+    Callable func3 = func_ptr;
     
-    for (size_t i = 0; i < functions.size(); ++i) {
-        std::cout << "Function " << i << "(5) = " << functions[i](5) << std::endl;
-    }
+    std::cout << "func1(5) = " << func1(5) << std::endl;
+    std::cout << "func2(5) = " << func2(5) << std::endl;
+    std::cout << "func3(5) = " << func3(5) << std::endl;
     
     // Serializable type erasure
     std::cout << "\n--- Serializable Type Erasure ---" << std::endl;
-    std::vector<Serializable> objects;
     
-    objects.emplace_back(User("John Doe", 30));
-    objects.emplace_back(Product("Laptop", 999.99));
+    Serializable user = User("John Doe", 30);
+    Serializable product = Product("Laptop", 999.99);
     
-    for (const auto& obj : objects) {
-        std::cout << "Serialized: " << obj.serialize() << std::endl;
-    }
+    std::cout << "Serialized: " << user.serialize() << std::endl;
+    std::cout << "Serialized: " << product.serialize() << std::endl;
     
-    // Copying and moving type-erased objects
-    std::cout << "\n--- Copying and Moving ---" << std::endl;
+    // Moving type-erased objects
+    std::cout << "\n--- Moving ---" << std::endl;
     
     Drawable original = Circle(10.0);
-    Drawable copy = original; // Copy constructor
     Drawable moved = std::move(original); // Move constructor
-    
-    std::cout << "Original (moved): ";
-    // original.draw(); // This would be invalid after move
-    
-    std::cout << "Copy: ";
-    copy.draw();
     
     std::cout << "Moved: ";
     moved.draw();

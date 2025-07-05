@@ -4,6 +4,7 @@
 #include <memory>
 #include <functional>
 #include <type_traits>
+#include <map>
 
 // Optimized YAGNI (You Aren't Gonna Need It) Principle Example
 // Using modern C++17/20 features for better performance and maintainability

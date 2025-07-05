@@ -3,6 +3,7 @@
 #include <memory>
 #include <algorithm>
 #include <functional>
+#include <numeric>
 #include <type_traits>
 
 // Optimized Liskov Substitution Principle (LSP) Example
@@ -74,7 +75,7 @@ public:
     
     // Rectangle-specific methods
     void setWidth(double width) { width_ = width; }
-    void setHeight(double height) { height_ = width; }
+    void setHeight(double height) { height_ = height; }
     [[nodiscard]] double getWidth() const noexcept { return width_; }
     [[nodiscard]] double getHeight() const noexcept { return height_; }
 
@@ -259,9 +260,9 @@ int main() {
     ShapeProcessor processor;
     
     // Add different shapes using modern factory pattern
-    processor.addShape(ShapeFactory<Rectangle>::create(5.0, 3.0));
-    processor.addShape(ShapeFactory<Square>::create(4.0));
-    processor.addShape(ShapeFactory<Rectangle>::create(2.0, 6.0));
+    processor.addShape(std::make_unique<Rectangle>(5.0, 3.0));
+    processor.addShape(std::make_unique<Square>(4.0));
+    processor.addShape(std::make_unique<Rectangle>(2.0, 6.0));
     
     // Demonstrate LSP compliance - all shapes work with same interface
     std::cout << "Original shapes:" << std::endl;

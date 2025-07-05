@@ -209,6 +209,22 @@ private:
     std::vector<std::shared_ptr<Command>> commands;
 };
 
+// No-op command (null object pattern)
+class NoCommand : public Command {
+public:
+    void execute() override {
+        // Do nothing
+    }
+    
+    void undo() override {
+        // Do nothing
+    }
+    
+    std::string getDescription() const override {
+        return "No Command";
+    }
+};
+
 // Invoker (Remote Control)
 class RemoteControl {
 public:
@@ -257,22 +273,6 @@ private:
     std::vector<std::shared_ptr<Command>> onCommands;
     std::vector<std::shared_ptr<Command>> offCommands;
     std::shared_ptr<Command> lastCommand;
-};
-
-// No-op command (null object pattern)
-class NoCommand : public Command {
-public:
-    void execute() override {
-        // Do nothing
-    }
-    
-    void undo() override {
-        // Do nothing
-    }
-    
-    std::string getDescription() const override {
-        return "No Command";
-    }
 };
 
 // Lambda-based command (modern C++ approach)

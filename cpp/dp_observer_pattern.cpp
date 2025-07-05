@@ -4,6 +4,7 @@
 #include <memory>
 #include <algorithm>
 #include <functional>
+#include <map>
 
 // Observer Pattern
 // Define a one-to-many dependency between objects so that when one object changes state,

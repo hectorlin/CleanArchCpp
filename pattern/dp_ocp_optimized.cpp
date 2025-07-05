@@ -3,6 +3,7 @@
 #include <memory>
 #include <algorithm>
 #include <functional>
+#include <numeric>
 #include <variant>
 #include <type_traits>
 
@@ -148,8 +149,11 @@ public:
     // Get shapes by type using modern C++ features
     [[nodiscard]] std::vector<const Shape*> getShapesByType(const std::string& type) const {
         std::vector<const Shape*> result;
-        std::copy_if(shapes_.begin(), shapes_.end(), std::back_inserter(result),
-            [&type](const auto& shape) { return shape->getType() == type; });
+        for (const auto& shape : shapes_) {
+            if (shape->getType() == type) {
+                result.push_back(shape.get());
+            }
+        }
         return result;
     }
     
@@ -218,9 +222,9 @@ int main() {
     ModernShapeCalculator calculator;
     
     // Add shapes using modern factory pattern
-    calculator.addShape(ShapeFactory<Rectangle>::create(5.0, 3.0));
-    calculator.addShape(ShapeFactory<Circle>::create(2.0));
-    calculator.addShape(ShapeFactory<Triangle>::create(4.0, 3.0));
+    calculator.addShape(std::make_unique<Rectangle>(5.0, 3.0));
+    calculator.addShape(std::make_unique<Circle>(2.0));
+    calculator.addShape(std::make_unique<Triangle>(4.0, 3.0));
     
     // Demonstrate extensibility - add new shape without modifying existing code
     class Square : public Shape {
@@ -242,7 +246,7 @@ int main() {
         double side_;
     };
     
-    calculator.addShape(ShapeFactory<Square>::create(4.0));
+    calculator.addShape(std::make_unique<Square>(4.0));
     
     // Use optimized calculation methods
     auto areas = calculator.calculateAllAreas();
