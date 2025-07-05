@@ -1,4 +1,6 @@
 // union 示例 / Example
+// www
+//
 #include <iostream>
 union Data {
     int i;
