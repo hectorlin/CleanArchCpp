@@ -1,4 +1,7 @@
 // alignas 示例 / Example
+//
+//
+//
 #include <iostream>
 struct alignas(16) AlignedStruct {
     int x;
