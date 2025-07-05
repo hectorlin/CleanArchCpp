@@ -355,7 +355,7 @@ int main() {
     std::vector<std::string> names = {"alice", "BOB", "charlie", "DIANA"};
     
     // Process names to uppercase
-    auto upperNames = processor.processBatch(names, StringUtils::toUpper);
+    auto upperNames = processor.processBatch<std::string>(names, std::function<std::string(const std::string&)>(StringUtils::toUpper));
     std::cout << "\nUppercase names: ";
     for (const auto& name : upperNames) {
         std::cout << name << " ";
@@ -363,9 +363,9 @@ int main() {
     std::cout << std::endl;
     
     // Filter names starting with 'A'
-    auto filteredNames = processor.filter(names, [](const std::string& name) {
+    auto filteredNames = processor.filter<std::string>(names, std::function<bool(const std::string&)>([](const std::string& name) {
         return StringUtils::startsWith(StringUtils::toLower(name), "a");
-    });
+    }));
     std::cout << "Names starting with 'A': ";
     for (const auto& name : filteredNames) {
         std::cout << name << " ";

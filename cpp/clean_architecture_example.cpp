@@ -5,13 +5,7 @@
 #include <functional>
 #include <algorithm>
 
-// C++11 compatibility: std::make_unique was introduced in C++14
-namespace std {
-    template<typename T, typename... Args>
-    std::unique_ptr<T> make_unique(Args&&... args) {
-        return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
-    }
-}
+// C++17 already has std::make_unique, no need for custom implementation
 
 // ============================================================================
 // ENTITIES (Domain Layer) - 实体层

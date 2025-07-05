@@ -201,7 +201,7 @@ public:
     void executeCommand(std::unique_ptr<Command> command) {
         command->execute();
         undoStack_.push(std::move(command));
-        redoStack_.clear(); // Clear redo stack when new command is executed
+        while (!redoStack_.empty()) redoStack_.pop();
     }
     
     void undo() {

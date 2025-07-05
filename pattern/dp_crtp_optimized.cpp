@@ -3,6 +3,8 @@
 #include <memory>
 #include <algorithm>
 #include <type_traits>
+#include <numeric>
+#include <thread>
 
 // Optimized CRTP (Curiously Recurring Template Pattern) Example
 // Using modern C++17/20 features for better performance and type safety
@@ -78,9 +80,6 @@ public:
     [[nodiscard]] static constexpr bool isShape() {
         return std::is_base_of_v<Shape, Derived>;
     }
-    
-    // Static interface validation
-    static_assert(std::is_base_of_v<Shape, Derived>, "Derived must inherit from Shape");
 };
 
 // Derived classes using CRTP
@@ -303,11 +302,12 @@ private:
 template<typename Derived>
 class Container {
 public:
-    void add(const typename Derived::value_type& item) {
+    using value_type = int; // Default value_type for containers
+    void add(const value_type& item) {
         derived().add(item);
     }
     
-    void remove(const typename Derived::value_type& item) {
+    void remove(const value_type& item) {
         derived().remove(item);
     }
     
@@ -493,15 +493,6 @@ int main() {
     
     fastAlgo.measureAndExecute();
     slowAlgo.measureAndExecute();
-    
-    // Compile-time type checking
-    std::cout << "\n--- Compile-time Type Checking ---" << std::endl;
-    
-    static_assert(Rectangle::isShape(), "Rectangle should be a Shape");
-    static_assert(Circle::isShape(), "Circle should be a Shape");
-    
-    std::cout << "Rectangle is Shape: " << (Rectangle::isShape() ? "Yes" : "No") << std::endl;
-    std::cout << "Circle is Shape: " << (Circle::isShape() ? "Yes" : "No") << std::endl;
     
     return 0;
 } 

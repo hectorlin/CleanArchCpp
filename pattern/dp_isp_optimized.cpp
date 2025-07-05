@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <functional>
 #include <type_traits>
+#include <numeric>
 
 // Optimized Interface Segregation Principle (ISP) Example
 // Using modern C++17/20 features for better performance and type safety
@@ -276,9 +277,10 @@ private:
 };
 
 // Template-based worker factory for compile-time type safety
-template<typename WorkerType, typename... Args>
+template<typename WorkerType>
 class WorkerFactory {
 public:
+    template<typename... Args>
     [[nodiscard]] static std::unique_ptr<WorkerType> create(Args&&... args) {
         return std::make_unique<WorkerType>(std::forward<Args>(args)...);
     }
