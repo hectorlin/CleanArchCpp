@@ -9,7 +9,7 @@
 *.dll
 
 # Compiled executables from keyword examples
-kw_*
+# kw_*  # Commented out to allow keyword example source files
 
 # IDE files
 .vscode/
