@@ -87,3 +87,14 @@ void modifyObject(MyClass& obj) {
     obj.name = "Modified Name";
     obj.value = 99;
 }
+
+============typedef typename====================
+typedef 和 typename 经常一起使用，特别是在模板中定义类型别名时。 
+typedef 用于创建别名，而 typename 确保这个别名被正确地解释为类型。
+
+    typedef typename T::value_type value_type; // T::value_type 是一个类型
+    typedef typename T::iterator   iterator;   // T::iterator 是一个类型
+
+
+  
+
