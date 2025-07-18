@@ -12,3 +12,29 @@ volatile 可能会导致一些性能损失，因为它阻止了编译器进行�
 
 ========================
 
+void* getAddress(int& value) { // 返回 void 指针 / Return void pointer
+    return &value;
+}
+
+***************
+
+void* ptr = getAddress(x);
+
+============================
+class Base {
+public:
+    virtual void print() { // 虚函数 / Virtual function
+        std::cout << "Base::print() / 基类打印" << std::endl;
+    }
+    virtual ~Base() = default; // 虚析构函数 / Virtual destructor
+};
+
+class Derived : public Base {
+public:
+    void print() override { // 重写虚函数 / Override virtual function
+        std::cout << "Derived::print() / 派生类打印" << std::endl;
+    }
+};
+
+============
+
