@@ -69,4 +69,21 @@ C++ 中的 union (共用體/联合体) 是一種特殊的類別，允許不同�
 
 ==========
 
+/ Define a sample class
+class MyClass {
+public:
+    std::string name;
+    int value;
 
+    MyClass(std::string n, int v) : name(n), value(v) {}
+
+    void display() const {
+        std::cout << "Name: " << name << ", Value: " << value << std::endl;
+    }
+};
+
+// Function that takes a MyClass object by reference
+void modifyObject(MyClass& obj) {
+    obj.name = "Modified Name";
+    obj.value = 99;
+}
