@@ -95,6 +95,33 @@ typedef 用于创建别名，而 typename 确保这个别名被正确地解释�
     typedef typename T::value_type value_type; // T::value_type 是一个类型
     typedef typename T::iterator   iterator;   // T::iterator 是一个类型
 
+=============================================
 
-  
+iterator begin() { return data.begin(); }
+
+The C++ code snippet iterator begin() { return data.begin(); } 
+defines a member function named begin() within a class. 
+
+iterator begin() { return data.begin(); }
+ 
+ for (Container<int>::iterator it = container.begin(); it != container.data.end(); ++it) {
+        std::cout << *it << " ";
+    }
+
+=======typeid=========
+double y = 3.14;
+std::cout << "Type of y: " << typeid(y).name() << std::endl;
+
+===============typedef=====================================
+typedef int Integer; // 类型别名 / Type alias
+typedef int* IntPtr; // 指针类型别名 / Pointer type alias
+typedef int Array[5]; // 数组类型别名 / Array type alias
+
+ Integer x = 42;
+    IntPtr ptr = &x;
+    Array arr = {1, 2, 3, 4, 5};
+
+
+
+
 
