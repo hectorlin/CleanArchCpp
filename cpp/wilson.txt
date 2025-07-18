@@ -37,4 +37,33 @@ public:
 };
 
 ============
+using namespace std; // 使用整个命名空间 / Use entire namespace
+using std::string; // 使用特定类型 / Use specific type
+
+usage:
+string str = "Hello"; // 不需要 std:: 前缀 / No need for std:: prefix
+
+============
+
+nsigned int x = 42; // 无符号整型 / Unsigned integer
+    unsigned char c = 255; // 无符号字符 / Unsigned character
+    unsigned long long big = 18446744073709551615ULL; // 无符号长长整型 / Unsigned long long
+
+============
+
+union Data {
+    int i;
+    float f;
+    char str[20];
+};
+
+C++ 中的 union (共用體/联合体) 是一種特殊的類別，允許不同的資料類型共享同一塊記憶體空間。 這使得在需要節省記憶體的情況下，能更有效地利用記憶體資源。 當一個 union 中的成員被賦值時，其他成員的值會失效，因為它們共享相同的記憶體位置
+
+優點：
+節省記憶體: 這是 union 最主要的優點。
+靈活的資料表示: 允許不同的資料類型共享同一塊記憶體，方便表示多種資料形態。
+在某些情況下提高效能: 在某些特定的場景下，union 能夠減少記憶體操作的次數，從而提高程式的執行效率。
+
+==========
+
 
