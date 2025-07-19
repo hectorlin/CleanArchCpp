@@ -152,8 +152,15 @@ ltrace ./your_program
 strace -e trace=file ./your_program
 ```
 
-===========
+======std::make_unique in C++ 14=====
 
+class Geeks {
+public:
+    Geeks() { cout << "Object Created\n"; }  // constructor
+    ~Geeks() { cout << "Object Destroyed"; }  // destructor
+};
+
+unique_ptr<Geeks> o = make_unique<Geeks>();
 
 
 
