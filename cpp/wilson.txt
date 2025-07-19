@@ -122,6 +122,28 @@ typedef int Array[5]; // 数组类型别名 / Array type alias
     Array arr = {1, 2, 3, 4, 5};
 
 
+====try catch======
+
+try{
+
+}
+catch(const ex& e)
+{
+}
+
+*******
+
+try {
+        throw std::runtime_error("Test exception / 测试异常");
+    } catch (const std::exception& e) {
+        std::cout << "Caught exception: " << e.what() << std::endl;
+    }
+
+============
+
+
+
+
 
 
 
