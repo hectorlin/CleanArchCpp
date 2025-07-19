@@ -140,6 +140,21 @@ try {
     }
 
 ============
+### System Call Tracing
+```bash
+# Trace system calls
+strace ./your_program
+
+# Trace library calls
+ltrace ./your_program
+
+# Trace specific system calls
+strace -e trace=file ./your_program
+```
+
+===========
+
+
 
 
 
