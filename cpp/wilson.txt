@@ -162,6 +162,16 @@ public:
 
 unique_ptr<Geeks> o = make_unique<Geeks>();
 
+======throw===========
+throw std::runtime_error("Division by zero / 除零错误"); // 抛出异常 / Throw exception
+
+========
+thread_local int threadVar = 0; // 线程局部存储 / Thread local storage
+
+這類變數實際上是多個物件的集合，因此當不同的執行緒存取它時，實際上是在存取不同的物件。 thread_local 變數其實在很多方面與 靜態儲存期變數 很接近。 舉例來說，它們可以被宣告在命名空間的作用域、函式內部、或是做為類別的靜態成員，但不能做為一般類別的成員。
+
+
+
 
 
 
