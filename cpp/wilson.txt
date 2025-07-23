@@ -180,7 +180,7 @@ MyClass& setValue(int v) {
 ==============
 
 template<typename T>
-T add(T a, T b) { // 函数模板 / Function template
+T add(T a, T b) { // "函数模板" / Function template
     return a + b;
 }
 
@@ -202,8 +202,19 @@ usage :
 Container<std::string> strContainer("Hello");
     std::cout << "strContainer: " << strContainer.getValue() << std::endl;
 
+ps : c++ constructor argument
 
+value is member of MyClass
 
+.....MyClass(int initialValue) : value(initialValue) { // Member initializer list
+
+class MyClass {
+    public:
+        int value;
+        MyClass(int initialValue) : value(initialValue) { // Member initializer list
+            // Constructor body (optional)
+        }
+    };
 
 
 
